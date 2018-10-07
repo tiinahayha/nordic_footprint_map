@@ -9,13 +9,13 @@ CA,Canada,1.689,1375.337
 CH,Switzerland,0.145,28.015
 CN,China,50.730,815.521
 CY,Cyprus,1.515,12.553
-CZ,CzechRepublic,0.599,266.362
+CZ,Czech Republic,0.599,266.362
 DE,Germany,16.468,1973.998
 DK,Denmark,78.367,12260.330
 EE,Estonia,0.672,929.820
 ES,Spain,199.415,1752.012
 FI,Finland,33.879,14336.168
-GB,UnitedKingdom,4.666,432.581
+GB,United Kingdom,4.666,432.581
 GR,Greece,17.793,519.701
 HR,Croatia,0.065,80.947
 HU,Hungary,1.681,427.073
@@ -41,10 +41,10 @@ SI,Slovenia,0.031,5.223
 SK,Slovakia,1.974,163.840
 TR,Turkey,31.968,409.059
 TW,Taiwan,0.089,7.413
-US,UnitedStates,81.504,2720.554
-WA,RestofAsia,544.028,8136.158
-WE,RestofEurope,17.210,1486.076
-WF,RestofAfrica,115.122,6223.199
-WL,RestofLatinAmerica,136.799,3813.431
-WM,RestofMiddleEast,524.091,1436.227
-ZA,SouthAfrica,20.846,387.466
+US,United States,81.504,2720.554
+WA,Rest of Asia,544.028,8136.158
+WE,Rest of Europe,17.210,1486.076
+WF,Rest of Africa,115.122,6223.199
+WL,Rest of Latin America,136.799,3813.431
+WM,Rest of Middle East,524.091,1436.227
+ZA,South Africa,20.846,387.466
