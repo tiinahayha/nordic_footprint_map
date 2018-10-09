@@ -1,6 +1,6 @@
 library(tidyverse)
 library(magrittr)
-library(sf)    # Install from GitHub: library(devtools); devtools::install_github("rstats-db/DBI"); devtools::install_github("r-spatial/sf")
+library(sf)    # Install sf from GitHub: library(devtools); devtools::install_github("r-spatial/sf")
 library(maps)
 library(maptools)
 library(rgeos)
@@ -11,7 +11,8 @@ country_list <- readr::read_csv("./input/country_concordance.csv")
 
 # Read footprint data 
 data <- readr::read_csv("./input/data.csv") %>% 
-  dplyr::filter(!region %in% c("Finland", "Denmark", "Sweden", "Norway"))
+  dplyr::filter(!region %in% c("Finland", "Denmark", "Sweden", "Norway")) %>% 
+  
 
 # Get polygon world map
 world_map = sf::st_as_sf(map('world', plot = FALSE, fill = TRUE))
@@ -36,14 +37,14 @@ colors[[1]] <- c("#bae4bc", "#56c5b8", "#0096c8", "#0868ac", "#00507d", "#000a32
 colors[[2]] <- c("#e4deba", "#c5a456", "#c86500", "#ac3a08", "#7d2600", "#320a00")
 colors[[3]] <- c("#e4bade", "#c456c5", "#c800b6", "#ac08a5", "#6f007d", "#270032")
 colors[[4]] <- c("#eff3ff", "#c6dbef", "#9ecae1", "#6baed6", "#3182bd", "#08519c")
-colors[[5]] <- c("#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b")
+colors[[5]] <- c("#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b")
 
 gp_map <- ggplot2::ggplot(footprint_map) +
-  ggplot2::geom_sf(aes(fill = water_nordic)) +
+  ggplot2::geom_sf(aes(fill = water_nordic), size = 0.1) +
   ggthemes::theme_map() +
   ggplot2::scale_fill_gradientn(colors = colors[[5]]) + 
-  ggplot2::geom_sf(data = footprint_map_centroid, aes(size = land_nordic)) +
-  ggplot2::theme(legend.position = "none", panel.grid.major = element_line(color = "white")) 
+  ggplot2::geom_sf(data = footprint_map_centroid, aes(size = land_nordic), show.legend = 'point', colour = "#212121") +
+  ggplot2::theme(legend.position = "bottom", panel.grid.major = element_line(color = "white")) 
   
 gp_map
  
@@ -70,11 +71,11 @@ gp_map_eu <- footprint_map %>%
   sf::st_crop(eu_bbox) %>% 
   dplyr::select(water_nordic) %>% 
   ggplot2::ggplot() +
-  ggplot2::geom_sf(aes(fill = water_nordic)) +
+  ggplot2::geom_sf(aes(fill = water_nordic), size = 0.1) +
   ggthemes::theme_map() +
   ggplot2::scale_fill_gradientn(colors = colors[[5]]) + 
-  ggplot2::geom_sf(data = sf::st_crop(footprint_map_centroid, eu_bbox), aes(size = land_nordic)) +
-  ggplot2::theme(legend.position = "none", panel.grid.major = element_line(color = "white")) 
+  ggplot2::geom_sf(data = sf::st_crop(footprint_map_centroid, eu_bbox), aes(size = land_nordic), show.legend = 'point', colour = "#212121") +
+  ggplot2::theme(legend.position = "left", panel.grid.major = element_line(color = "white")) 
 
 gp_map_eu
 
