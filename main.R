@@ -26,10 +26,16 @@ footprint_map <- world_map %>%
   dplyr::summarise(water_nordic = mean(water_nordic, na.rm = TRUE),
                    land_nordic = mean(land_nordic, na.rm = TRUE))
 
+# Save geodata 
+sf::write_sf(footprint_map, dsn = "./output/footprint_map.geojson", driver = "GeoJSON", delete_dsn = TRUE)
+
 # Calculate regions centroids 
 footprint_map_centroid <- footprint_map %>% 
   sf::st_centroid(of_largest_polygon = TRUE) %>% 
   dplyr::filter(Region != "Nordic")
+
+# Save geodata 
+sf::write_sf(footprint_map_centroid, dsn = "./output/footprint_map_centroid.geojson", driver = "GeoJSON", delete_dsn = TRUE)
 
 # define colors
 colors <- list()
