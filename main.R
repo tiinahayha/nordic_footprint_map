@@ -5,13 +5,14 @@ library(maps)
 library(maptools)
 library(rgeos)
 library(ggthemes)
+library(viridis)
 
 # Read country conconrdance table
 country_list <- readr::read_csv("./input/country_concordance.csv") 
 
 # Read footprint data 
 data <- readr::read_csv("./input/data.csv") %>% 
-  dplyr::filter(!region %in% c("Finland", "Denmark", "Sweden", "Norway")) %>% 
+  dplyr::filter(!region %in% c("Finland", "Denmark", "Sweden", "Norway")) 
   
 
 # Get polygon world map
@@ -48,19 +49,21 @@ colors[[5]] <- c("#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c
 gp_map <- ggplot2::ggplot(footprint_map) +
   ggplot2::geom_sf(aes(fill = water_nordic), size = 0.1) +
   ggthemes::theme_map() +
-  ggplot2::scale_fill_gradientn(colors = colors[[5]]) + 
-  ggplot2::geom_sf(data = footprint_map_centroid, aes(size = land_nordic), show.legend = 'point', colour = "#212121") +
+  viridis::scale_fill_viridis(option = "viridis") +
+  # ggplot2::scale_fill_gradientn(colors = colors[[5]]) + 
+  ggplot2::geom_sf(data = footprint_map_centroid, aes(size = land_nordic), show.legend = 'point', fill = "#f39642", colour="white", shape = 21) +
+  # scale_colour_manual(values = "#212121") + 
   ggplot2::theme(legend.position = "bottom", panel.grid.major = element_line(color = "white")) 
   
 gp_map
  
-ggplot2::ggsave(paste0("global_footprint_map.pdf"), plot = gp_map, path = "./output",
+ggplot2::ggsave(paste0("viridis_global_footprint_map.pdf"), plot = gp_map, path = "./output",
                 scale = 1, width = 207, height = 90, units = "mm", dpi = 600)
 
-ggplot2::ggsave(paste0("global_footprint_map.eps"), plot = gp_map, path = "./output",
+ggplot2::ggsave(paste0("viridis_global_footprint_map.eps"), plot = gp_map, path = "./output",
                 scale = 1, width = 207, height = 90, units = "mm", dpi = 600)
 
-ggplot2::ggsave(paste0("global_footprint_map.png"), plot = gp_map, path = "./output",
+ggplot2::ggsave(paste0("viridis_global_footprint_map.png"), plot = gp_map, path = "./output",
                 scale = 1, width = 207, height = 90, units = "mm", dpi = 600)
 
 # Get zoom to EU 
@@ -79,19 +82,20 @@ gp_map_eu <- footprint_map %>%
   ggplot2::ggplot() +
   ggplot2::geom_sf(aes(fill = water_nordic), size = 0.1) +
   ggthemes::theme_map() +
-  ggplot2::scale_fill_gradientn(colors = colors[[5]]) + 
-  ggplot2::geom_sf(data = sf::st_crop(footprint_map_centroid, eu_bbox), aes(size = land_nordic), show.legend = 'point', colour = "#212121") +
+  viridis::scale_fill_viridis(option = "viridis") +
+  # ggplot2::scale_fill_gradientn(colors = colors[[5]]) + 
+  ggplot2::geom_sf(data = sf::st_crop(footprint_map_centroid, eu_bbox), aes(size = land_nordic), show.legend = 'point', fill = "#f39642", colour="white", shape = 21) +
   ggplot2::theme(legend.position = "left", panel.grid.major = element_line(color = "white")) 
 
 gp_map_eu
 
-ggplot2::ggsave(paste0("global_footprint_map_eu.pdf"), plot = gp_map_eu, path = "./output",
+ggplot2::ggsave(paste0("viridis_global_footprint_map_eu.pdf"), plot = gp_map_eu, path = "./output",
                 scale = 1, width = 207, height = 90, units = "mm", dpi = 600)
 
-ggplot2::ggsave(paste0("global_footprint_map_eu.eps"), plot = gp_map_eu, path = "./output",
+ggplot2::ggsave(paste0("viridis_global_footprint_map_eu.eps"), plot = gp_map_eu, path = "./output",
                 scale = 1, width = 207, height = 90, units = "mm", dpi = 600)
 
-ggplot2::ggsave(paste0("global_footprint_map_eu.png"), plot = gp_map_eu, path = "./output",
+ggplot2::ggsave(paste0("viridis_global_footprint_map_eu.png"), plot = gp_map_eu, path = "./output",
                 scale = 1, width = 207, height = 90, units = "mm", dpi = 600)
 
 
