@@ -47,9 +47,9 @@ colors[[4]] <- c("#eff3ff", "#c6dbef", "#9ecae1", "#6baed6", "#3182bd", "#08519c
 colors[[5]] <- c("#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b")
 
 gp_map <- ggplot2::ggplot(footprint_map) +
-  ggplot2::geom_sf(aes(fill = water_nordic), size = 0.1) +
+  ggplot2::geom_sf(aes(fill = water_nordic), size = 0.1, ) +
   ggthemes::theme_map() +
-  viridis::scale_fill_viridis(option = "viridis") +
+  viridis::scale_fill_viridis(direction = -1, option = "viridis") +
   # ggplot2::scale_fill_gradientn(colors = colors[[5]]) + 
   ggplot2::geom_sf(data = footprint_map_centroid, aes(size = land_nordic), show.legend = 'point', fill = "#f39642", colour="white", shape = 21) +
   # scale_colour_manual(values = "#212121") + 
@@ -82,7 +82,7 @@ gp_map_eu <- footprint_map %>%
   ggplot2::ggplot() +
   ggplot2::geom_sf(aes(fill = water_nordic), size = 0.1) +
   ggthemes::theme_map() +
-  viridis::scale_fill_viridis(option = "viridis") +
+  viridis::scale_fill_viridis(direction = -1, option = "viridis", na.value = "#dadada") +
   # ggplot2::scale_fill_gradientn(colors = colors[[5]]) + 
   ggplot2::geom_sf(data = sf::st_crop(footprint_map_centroid, eu_bbox), aes(size = land_nordic), show.legend = 'point', fill = "#f39642", colour="white", shape = 21) +
   ggplot2::theme(legend.position = "left", panel.grid.major = element_line(color = "white")) 
